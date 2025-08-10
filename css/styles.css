@@ -921,7 +921,6 @@ body {
     justify-content: center;
     flex-shrink: 0;
     margin-top: 2px;
-    fill: transparent;
 }
 
 
@@ -933,7 +932,7 @@ body {
 }
 
 .visually-hidden:checked+.privacy-label .custom-checkbox {
-    background-color: var(--accent-color);
+    background-color: #F4F4FD;
     border: none;
 }
 
