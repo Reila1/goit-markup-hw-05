@@ -717,30 +717,6 @@ body {
     font-family: 'Roboto', sans-serif;
 }
 
-.visually-hidden {
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    margin: -1px;
-    border: 0;
-    padding: 0;
-    white-space: nowrap;
-    clip-path: inset(100%);
-    clip: rect(0 0 0 0);
-    overflow: hidden;
-}
-
-.open-modal-btn {
-    padding: 16px 32px;
-    background-color: #4D5AE5;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    font-size: 16px;
-    cursor: pointer;
-    margin: 20px;
-}
-
 .backdrop {
     position: fixed;
     top: 0;
@@ -753,6 +729,7 @@ body {
     pointer-events: auto;
     transition: opacity 250ms cubic-bezier(0.4, 0, 0.2, 1),
         visibility 250ms cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 9999;
 }
 
 .backdrop.is-hidden {
@@ -803,16 +780,19 @@ body {
 .close-btn:focus {
     background-color: #404bbf;
     border: none;
-    /* Правка по вашему запросу */
+    color: #ffffff;
 }
 
 .close-icon {
     transition: fill 250ms cubic-bezier(0.4, 0, 0.2, 1);
+    width: 8px;
+    height: 8px;
+    color: #2e2f42;
 }
 
 .close-btn:hover .close-icon,
 .close-btn:focus .close-icon {
-    fill: #ffffff;
+    color: #ffffff;
 }
 
 .modal-title {
@@ -821,7 +801,7 @@ body {
     line-height: 1.5;
     text-align: center;
     letter-spacing: 0.02em;
-    color: var(--primary-text-color);
+    color: #2E2F42;
     margin-bottom: 16px;
 }
 
@@ -836,14 +816,13 @@ body {
 
 .comment-group {
     margin-bottom: 16px;
-    /* Правка по вашему запросу */
 }
 
 .form-label {
     display: block;
     font-size: 12px;
     font-weight: 400;
-    color: var(--secondary-text-color);
+    color: #8E8F99;
     margin-bottom: 4px;
     line-height: 1.17;
     letter-spacing: 0.04em;
@@ -860,14 +839,15 @@ body {
     border-radius: 4px;
     padding-left: 38px;
     font-size: 12px;
-    color: var(--primary-text-color);
+    color: #2E2F42;
     background: transparent;
     outline: transparent;
     transition: border-color 250ms cubic-bezier(0.4, 0, 0.2, 1);
+    box-sizing: border-box;
 }
 
 .form-input:focus {
-    border-color: var(--link-color);
+    border-color: #4D5AE5;
 }
 
 .input-icon {
@@ -875,12 +855,15 @@ body {
     left: 16px;
     top: 50%;
     transform: translateY(-50%);
-    fill: var(--primary-text-color);
-    transition: fill 250ms cubic-bezier(0.4, 0, 0.2, 1);
+    color: #2E2F42;
+    transition: color 250ms cubic-bezier(0.4, 0, 0.2, 1);
+    width: 18px;
+    height: 18px;
+    pointer-events: none;
 }
 
 .form-input:focus+.input-icon {
-    fill: var(--link-color);
+    color: #4D5AE5;
 }
 
 .form-textarea {
@@ -892,16 +875,17 @@ body {
     font-size: 12px;
     line-height: 1.17;
     letter-spacing: 0.04em;
-    color: rgba(46, 47, 66, 0.4);
+    color: #2E2F42;
     background-color: transparent;
     outline: transparent;
     resize: none;
     font-family: inherit;
     transition: border-color 250ms cubic-bezier(0.4, 0, 0.2, 1);
+    box-sizing: border-box;
 }
 
 .form-textarea:focus {
-    border-color: var(--link-color);
+    border-color: #4D5AE5;
 }
 
 .form-textarea::placeholder {
@@ -914,12 +898,13 @@ body {
 
 .privacy-label {
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     font-size: 12px;
     line-height: 1.17;
     letter-spacing: 0.04em;
-    color: var(--secondary-text-color);
+    color: #8E8F99;
     gap: 8px;
+    cursor: pointer;
 }
 
 .custom-checkbox {
@@ -928,29 +913,32 @@ body {
     border: 1px solid rgba(46, 47, 66, 0.4);
     border-radius: 2px;
     transition: background-color 250ms cubic-bezier(0.4, 0, 0.2, 1),
-        border 250ms cubic-bezier(0.4, 0, 0.2, 1),
-        fill 250ms cubic-bezier(0.4, 0, 0.2, 1);
+        border 250ms cubic-bezier(0.4, 0, 0.2, 1);
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    fill: transparent;
     flex-shrink: 0;
-}
-
-/* Стили для кастомного чекбокса когда оригинальный input выбран */
-.visually-hidden:checked+.privacy-label .custom-checkbox {
-    background-color: var(--accent-color);
-    border: none;
-    fill: var(--checkbox-fill-color);
+    margin-top: 2px;
 }
 
 .checkbox-icon {
     width: 10px;
     height: 8px;
+    color: transparent;
+    transition: color 250ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.visually-hidden:checked+.privacy-label .custom-checkbox {
+    background-color: #404BBF;
+    border: none;
+}
+
+.visually-hidden:checked+.privacy-label .checkbox-icon {
+    color: #F4F4FD;
 }
 
 .privacy-link {
-    color: var(--link-color);
+    color: #4D5AE5;
     text-decoration: underline;
 }
 
@@ -965,7 +953,7 @@ body {
     letter-spacing: 0.04em;
     color: #ffffff;
     cursor: pointer;
-    background-color: var(--link-color);
+    background-color: #4D5AE5;
     border: none;
     border-radius: 4px;
     transition: background-color 250ms cubic-bezier(0.4, 0, 0.2, 1);
@@ -974,5 +962,5 @@ body {
 
 .submit-btn:hover,
 .submit-btn:focus {
-    background-color: var(--accent-color);
+    background-color: #404BBF;
 }
