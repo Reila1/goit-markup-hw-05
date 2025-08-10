@@ -705,6 +705,18 @@ height: 300px;
     background-color: #404bbf;
 }
 
+:root {
+    --primary-text-color: #2E2F42;
+    --secondary-text-color: #8E8F99;
+    --accent-color: #404BBF;
+    --link-color: #4D5AE5;
+    --checkbox-fill-color: #F4F4FD;
+}
+
+body {
+    font-family: 'Roboto', sans-serif;
+}
+
 .visually-hidden {
     position: absolute;
     width: 1px;
@@ -717,6 +729,7 @@ height: 300px;
     clip: rect(0 0 0 0);
     overflow: hidden;
 }
+
 .open-modal-btn {
     padding: 16px 32px;
     background-color: #4D5AE5;
@@ -735,17 +748,17 @@ height: 300px;
     width: 100%;
     height: 100%;
     background-color: rgba(46, 47, 66, 0.4);
-    opacity: 0;
-    visibility: hidden;
-    pointer-events: none;
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
     transition: opacity 250ms cubic-bezier(0.4, 0, 0.2, 1),
         visibility 250ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.backdrop.is-open {
-    opacity: 1;
-    visibility: visible;
-    pointer-events: auto;
+.backdrop.is-hidden {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
 }
 
 .modal {
@@ -759,13 +772,13 @@ height: 300px;
         0px 1px 1px 0px rgba(0, 0, 0, 0.14);
     background-color: #FCFCFC;
     border-radius: 4px;
-    transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%) scale(1);
     transition: transform 250ms cubic-bezier(0.4, 0, 0.2, 1);
     padding: 72px 24px 24px 24px;
 }
 
-.backdrop:not(.is-open) .modal {
-    transform: translate(-50%, -100%);
+.backdrop.is-hidden .modal {
+    transform: translate(-50%, -50%) scale(0.9);
 }
 
 .close-btn {
@@ -789,11 +802,11 @@ height: 300px;
 .close-btn:hover,
 .close-btn:focus {
     background-color: #404bbf;
+    border: none;
+    /* Правка по вашему запросу */
 }
 
 .close-icon {
-    width: 8px;
-    height: 8px;
     transition: fill 250ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 
@@ -821,11 +834,16 @@ height: 300px;
     margin-bottom: 8px;
 }
 
+.comment-group {
+    margin-bottom: 16px;
+    /* Правка по вашему запросу */
+}
+
 .form-label {
     display: block;
     font-size: 12px;
     font-weight: 400;
-    color: #8E8F99;
+    color: var(--secondary-text-color);
     margin-bottom: 4px;
     line-height: 1.17;
     letter-spacing: 0.04em;
@@ -842,14 +860,14 @@ height: 300px;
     border-radius: 4px;
     padding-left: 38px;
     font-size: 12px;
-    color: #2E2F42;
+    color: var(--primary-text-color);
     background: transparent;
     outline: transparent;
     transition: border-color 250ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .form-input:focus {
-    border-color: #4D5AE5;
+    border-color: var(--link-color);
 }
 
 .input-icon {
@@ -857,13 +875,12 @@ height: 300px;
     left: 16px;
     top: 50%;
     transform: translateY(-50%);
-    width: 18px;
-    height: 18px;
+    fill: var(--primary-text-color);
     transition: fill 250ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .form-input:focus+.input-icon {
-    fill: #4D5AE5;
+    fill: var(--link-color);
 }
 
 .form-textarea {
@@ -884,7 +901,7 @@ height: 300px;
 }
 
 .form-textarea:focus {
-    border-color: #4D5AE5;
+    border-color: var(--link-color);
 }
 
 .form-textarea::placeholder {
@@ -892,29 +909,20 @@ height: 300px;
 }
 
 .checkbox-wrapper {
-    display: flex;
-    align-items: flex-start;
-    gap: 8px;
     margin-bottom: 24px;
+}
+
+.privacy-label {
+    display: flex;
+    align-items: center;
     font-size: 12px;
     line-height: 1.17;
-    color: #8E8F99;
+    letter-spacing: 0.04em;
+    color: var(--secondary-text-color);
+    gap: 8px;
 }
 
-.checkbox {
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    margin: -1px;
-    border: 0;
-    padding: 0;
-    white-space: nowrap;
-    clip-path: inset(100%);
-    clip: rect(0 0 0 0);
-    overflow: hidden;
-}
-
-.checkbox-span {
+.custom-checkbox {
     width: 16px;
     height: 16px;
     border: 1px solid rgba(46, 47, 66, 0.4);
@@ -929,7 +937,8 @@ height: 300px;
     flex-shrink: 0;
 }
 
-.checkbox:checked+.checkbox-span {
+/* Стили для кастомного чекбокса когда оригинальный input выбран */
+.visually-hidden:checked+.privacy-label .custom-checkbox {
     background-color: var(--accent-color);
     border: none;
     fill: var(--checkbox-fill-color);
@@ -948,9 +957,7 @@ height: 300px;
 .submit-btn {
     min-width: 169px;
     height: 56px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    display: block;
     font-family: "Roboto", sans-serif;
     font-size: 16px;
     font-weight: 500;
@@ -958,23 +965,14 @@ height: 300px;
     letter-spacing: 0.04em;
     color: #ffffff;
     cursor: pointer;
-    background-color: #4D5AE5;
+    background-color: var(--link-color);
     border: none;
     border-radius: 4px;
     transition: background-color 250ms cubic-bezier(0.4, 0, 0.2, 1);
     margin: 0 auto;
 }
 
-.submit-btn:hover {
-    background-color: #404BBF;
+.submit-btn:hover,
+.submit-btn:focus {
+    background-color: var(--accent-color);
 }
-
-.icon-person {
-    fill: #2E2F42;
-}
-
-.icon-phone,
-.icon-email {
-    fill: #2E2F42;
-}
-
